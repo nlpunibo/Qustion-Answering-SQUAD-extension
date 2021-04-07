@@ -19,6 +19,9 @@ Where:
 - `--extension` with this parameter you can choose the extension you want to try. It can assume only 4 values [ner, multiple_choice, classifier, convolutional_classifier]
 - `--test` this parameter is used to choose for which dataset you want to compute the predictions, so you can pass to it the path to the json file of your dataset, or "squad_v1" or "squad_v2" if you want to compute the predictions for respectively the squad 1.1 dev_set and the squad 2.0 dev_set.
 
+Then if youy want to evaluate the results you can use the  `evaluate.py` script to test the method you have chosenu.
+- `python3 evaluate.py *path_to_ground_truth* *path_to_predictions_file*`
+
 ## Recommendations
 
 We strongly reccomend you to use a GPU for running the `train.py` and the `compute_answers.py` scripts. To do so you can use the Nvidia graphic card of your machine, if it has one. In this case make sure that you have all the prerequisites (https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#install-windows) and to have installed the pytorch version for the CUDA platform (https://pytorch.org/).
