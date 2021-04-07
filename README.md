@@ -13,14 +13,14 @@ We recommend creating a separate python 3.6 environment.
 ## Usage
 
 To the script `compute_answers.py`, you just need to launch it:
-- `python3 compute_answers.py --extension name_of_the_extension --test test_dataset --weights path_to_ner_weights`
+`python3 compute_answers.py --extension name_of_the_extension --test test_dataset --weights path_to_ner_weights`
 
 Where:
 - `--extension` with this parameter you can choose the extension you want to try. It can assume only 4 values [ner, multiple_choice, classifier, convolutional_classifier]
 - `--test` this parameter is used to choose for which dataset you want to compute the predictions, so you can pass to it the path to the json file of your dataset, or "squad_v1" or "squad_v2" if you want to compute the predictions for respectively the squad 1.1 dev_set and the squad 2.0 dev_set.
 
-Then if youy want to evaluate the results you can use the  `evaluate.py` script to test the method you have chosenu.
-- `python3 evaluate.py *path_to_ground_truth* *path_to_predictions_file*`
+Then if youy want to evaluate the results you can use the  `evaluate.py` script to test the method you have chosen:
+`python3 evaluate.py *path_to_ground_truth* *path_to_predictions_file*`
 
 ## Recommendations
 
