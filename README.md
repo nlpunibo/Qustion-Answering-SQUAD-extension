@@ -1,17 +1,10 @@
 # Qustion-Answering-Squad-extension
-Question answering is an important task based on which intelligence of NLP systems and AI in general can be judged. A QA system is given a short paragraph or *context* about some topic and is asked some questions based on the passage. The answers to these questions are spans of the context, that is they are directly available in the passage. To train such models, we use the [SQUAD](https://arxiv.org/abs/1606.05250) dataset.
 
-The main method we rely on in this project is Transformer. Specifically, we take the DistilBERT model, pretrained on Masked LM and Next Sentence Prediction, add new head for question answering, and train the new model for our task. 
-
-The reason we used pre-trained transformers instead of building a specific deep learning model (LSTM, CNN, etc.) which is suitable for question answering tasks is that we could do a quicker development and we could get better results by using fewer data. 
-In fact, we believe that the same transfer learning shift as the one that took place in CV field several years ago would happen to NLP. Rather than training a new network from scratch each time, the lower layers of a trained network with generalized features (the backbone) could be copied and transferred for use in another network with a different task.
-
-To come up with the best model we have experimented with different question heads which differ in the number of layers, activation function and overall structure. 
-For the analysis of the results, we measured the F1 score and the EM (Exact Match) score to have the same set of metrics as in the SQuAD paper and we found that our question head led to better results with respect to the Vanilla one present on the Hugging Face library.
+In this extension repository of our base project [Question Answering SQUAD](https://github.com/nlpunibo/Question-Answering-SQUAD) we present 4 diferent approaches that we have tried to improve the performances, in terms of F1 score and EM of our model.
 
 ## Installation
 
-To quickly use our modified version of DistilBertForQuestionAnswering, clone this repository and install the necessary requirements by running
+To quickly try out our experiments, clone this repository and install the necessary requirements by running
 
 `pip install -r requirements.txt`
 
@@ -19,11 +12,12 @@ We recommend creating a separate python 3.6 environment.
 
 ## Usage
 
-To run the two scripts `train.py` and the `compute_answers.py`, you just need to launch respectively:
-- `python3 train.py path_to_json_file`
-- `python3 compute_answers.py path_to_json_file`
+To the script `compute_answers.py`, you just need to launch it:
+- `python3 compute_answers.py --extension name_of_the_extension --test test_dataset --weights path_to_ner_weights`
 
-Where `path_to_json_file` is the path to the json file which, in the `train.py` case, will be used to train our custom DistilBertForQuestionAnswering model whereas, in the `compute_answers.py` case, it will be used to compute and save another JSON file with the following format
+Where:
+- `extension` is the name of the extension you want to try and it can assume only 4 values [ner, multiple_choice, classifier, convolutional_classifier]
+- `test` this parameter is used to choose for which dataset you want to compute the predictions, so you can pass to it the path to the json file of your dataset, or "squad_v1" or "squad_v2" if you want to compute the predictions for respectively the squad 1.1 dev_set and the squad 2.0 dev_set
 
 ```json
 {
