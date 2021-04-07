@@ -10,7 +10,6 @@ def get_args_from_command_line():
     parser.add_argument('--extension',  help='Chose the extension you want to use',
                         choices=['ner', 'multiple_choice', 'classifier', 'convolutional_classifier'],  type=str)
     parser.add_argument('--test', help="Valid path to a json file, squad_v1 or squad_v2", type=str)
-    parser.add_argument('--weights', help="Path to the json file where the ner weights are saved", type=str)
     args = parser.parse_args()
     return args
 
@@ -20,10 +19,7 @@ def main():
     args = get_args_from_command_line()
 
     if args.extension == "ner":
-        if args.weights is None:
-            raise argparse.ArgumentTypeError('For the ner extension you must pass also the weights path')
-        else:
-            ner(args.test,args.weights)
+        ner(args.test,"./datasets/ner_weights.json")
     elif args.extension == "multiple_choice":
         multiple_choice(args.test)
     elif args.extension == "classifier":
