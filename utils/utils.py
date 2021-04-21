@@ -382,6 +382,7 @@ class SQUAD():
         for example_index, example in enumerate(tqdm(examples)):
             # Those are the indices of the features associated to the current example.
             feature_indices = features_per_example[example_index]
+            min_null_score = None
             valid_answers = []
 
             context = example["context"]
@@ -397,6 +398,9 @@ class SQUAD():
                 # Update minimum null prediction.
                 cls_index = features[feature_index]["input_ids"].index(self.tokenizer.cls_token_id)
                 feature_null_score = start_logits[cls_index] + end_logits[cls_index]
+                if min_null_score is None or min_null_score < feature_null_score:
+                    min_null_score = feature_null_score
+
 
                 # Go through all possibilities for the `n_best_size` greater start and end logits.
                 start_indexes = np.argsort(start_logits)[-1: -self.n_best_size - 1: -1].tolist()
@@ -433,7 +437,11 @@ class SQUAD():
                 best_answer = {"text": "", "score": 0.0}
 
             # Let's pick our final answer
-            predictions[example["id"]] = best_answer["text"]
+            if not self.squad_v2:
+                predictions[example["id"]] = best_answer["text"]
+            else:
+                answer = best_answer["text"] if best_answer["score"] > min_null_score else ""
+                predictions[example["id"]] = answer
 
         return predictions
 
