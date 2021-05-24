@@ -808,8 +808,8 @@ class Eval():
 
 def compute_metrics_classifier(pred):
     labels = pred.label_ids
-
-    preds = [np.round(num) for num in pred.predictions]
+    
+    preds = torch.round(torch.sigmoid(torch.from_numpy(pred.predictions)))
 
     acc = accuracy_score(labels, preds)
     return {
