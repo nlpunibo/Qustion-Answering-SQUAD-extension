@@ -162,7 +162,8 @@ class SQUAD():
         answer = example['answers_text']
 
         # Context plus question
-        question_plus = [x + " [SEP]" + y for x, y in zip(example['context'], example['question'])]
+        question_plus = f" {str(question)}"
+        question_plus += f"[SEP] {str(context)}"
 
         encoder_inputs = self.tokenizer(question_plus, str(example['answers_text']),
                                    return_tensors='pt',
